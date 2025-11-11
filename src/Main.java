@@ -20,9 +20,9 @@ public class Main {
            System.out.println("Enter the ID:");
            int id = sc.nextInt();
            System.out.println("Enter the Brand:");
-           String brand = sc.nextLine();
+           String brand = sc.next();
            System.out.println("Enter the Model:");
-           String model = sc.nextLine();
+           String model = sc.next();
            boolean isRented = false;
            System.out.println("Choose the type among the following:");
            System.out.println("1.Car");
@@ -34,15 +34,18 @@ public class Main {
                    System.out.println("Enter the number of seats:");
                    int seats = sc.nextInt();
                    Car c = new Car(id,brand,model,isRented,seats);
+                   system.addVehicle(c);
                    break;
                case 2:
                    boolean hasHelmet = true;
                    Bike b = new Bike(id,brand,model,isRented,hasHelmet);
+                   system.addVehicle(b);
                    break;
                case 3:
                    System.out.println("Enter the load capacity:");
                    double loadCapacity = sc.nextDouble();
                    Truck t = new Truck(id,brand,model,isRented,loadCapacity);
+                   system.addVehicle(t);
                    break;
                default:
                    System.out.println("Invalid choice.Try again");

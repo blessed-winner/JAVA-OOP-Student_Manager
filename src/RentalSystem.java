@@ -6,10 +6,11 @@ class RentalSystem implements VehicleOperations {
     public void addVehicle(Vehicle vehicle){
         try{
             vehicles.add(vehicle);
+            System.out.println("Vehicle added successfully");
         } catch(Exception e){
             e.printStackTrace();
         }
-        System.out.println("Vehicle added successfully");
+
     }
 
     @Override

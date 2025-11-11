@@ -72,7 +72,7 @@ class RentalSystem implements VehicleOperations {
     public void rentVehicle(int id){
         try{
             Vehicle v = findById(id);
-            if(v != null && v.getIsRented() == true){
+            if(v != null && v.getIsRented() == false){
                 v.rent();
             } else System.out.println("Vehicle not found");
         } catch(Exception e){
@@ -83,7 +83,7 @@ class RentalSystem implements VehicleOperations {
     public void returnVehicle(int id){
         try{
             Vehicle v = findById(id);
-            if(v != null){
+            if(v != null && v.getIsRented() == true){
                 v.returnVehicle();
             }
         } catch(Exception e){

@@ -1,3 +1,4 @@
+import java.io.*;
 import java.util.*;
 
 class RentalSystem implements VehicleOperations {
@@ -88,6 +89,34 @@ class RentalSystem implements VehicleOperations {
             }
         } catch(Exception e){
             e.printStackTrace();
+        }
+    }
+
+    public void saveToFile(){
+        try(PrintWriter pw = new PrintWriter(new File("Vehicles.txt"))){
+            for(Vehicle v:vehicles){
+                if(v instanceof Car){
+                    Car c = (Car) v;
+                    pw.println("Car," + c.getId() + "," + c.getBrand() + "," + c.getModel() + "," + c.getIsRented() + "," + c.getSeats());
+                } else if(v instanceof Bike){
+                    Bike b = (Bike) v;
+                    pw.println("Car," + b.getId() + "," + b.getBrand() + "," + b.getModel() + "," + b.getIsRented() + "," + b.getSeats());
+                } else if(v instanceof Truck){
+                    Truck t = (Truck) v;
+                    pw.println("Car," + t.getId() + "," + t.getBrand() + "," + t.getModel() + "," + t.getIsRented() + "," + t.getSeats());
+                }
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void loadFromFile(){
+        File file = new File("Vehicles.txt");
+        try(BufferedReader br = new BufferedReader(new FileReader(file))){
+
+        }catch(IOException){
+
         }
     }
 }

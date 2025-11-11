@@ -1,9 +1,9 @@
 interface VehicleOperations {
-    public void addVehicle(Vehicle v);
-    public Vehicle viewVehicles();
-    public Vehicle findById(int id);
-    public void updateVehicle(int id, String newBrand, String newModel);
-    public void deleteVehicle(int id);
-    public void rentVehicle(int id);
-    public void returnVehicle(int id);
+     void addVehicle(Vehicle v);
+     void viewVehicles();
+     Vehicle findById(int id);
+     void updateVehicle(int id, String newBrand, String newModel);
+     void deleteVehicle(int id);
+     void rentVehicle(int id);
+     void returnVehicle(int id);
 }

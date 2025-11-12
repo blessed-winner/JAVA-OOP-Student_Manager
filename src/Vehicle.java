@@ -51,6 +51,6 @@ abstract class Vehicle {
 
     @Override
     public String toString() {
-        return getType() + "[ ID: " +id + ", Brand: " +brand + ",Model: " +model + ",isRented: " +isRented +"]";
+        return getType() + "[ ID: " +id + ", Brand: " +brand + ",Model: " +model + ",isRented: " +isRented + "]";
     }
 }

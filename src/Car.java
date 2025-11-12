@@ -20,6 +20,6 @@ class Car extends Vehicle{
 
     @Override
     public String toString() {
-        return getType() + "[ ID: " +super.getId() + ", Brand: " +super.getBrand() + ",Model: " +super.getModel() + ",isRented: " +super.getIsRented() + "Seats: " +seats +"]";
+        return getType() + "[ ID: " +super.getId() + ", Brand: " +super.getBrand() + ",Model: " +super.getModel() + ",isRented: " +super.getIsRented() + " ,Seats: " +seats +"]";
     }
 }

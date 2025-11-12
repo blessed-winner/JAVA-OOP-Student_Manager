@@ -14,24 +14,33 @@ public class Main {
       System.out.println("7.Return a vehicle");
       System.out.println("8.Exit");
 
+      System.out.print("Choice: ");
       int choice = sc.nextInt();
       switch(choice){
           case 1:
-           System.out.println("Enter the ID:");
+           System.out.print("Enter the ID: ");
            int id = sc.nextInt();
-           System.out.println("Enter the Brand:");
-           String brand = sc.next();
-           System.out.println("Enter the Model:");
-           String model = sc.next();
+           sc.nextLine();
+           for(Vehicle v: system.vehicles){
+               if(v.getId() == id){
+                   System.out.println("Vehicle with id " + id + " already exists");
+                   return;
+               }
+           }
+           System.out.print("Enter the Brand: ");
+           String brand = sc.nextLine();
+           System.out.print("Enter the Model: ");
+           String model = sc.nextLine();
            boolean isRented = false;
            System.out.println("Choose the type among the following:");
            System.out.println("1.Car");
            System.out.println("2.Bike");
            System.out.println("3.Truck");
+           System.out.print("Choice: ");
            int typeChoice = sc.nextInt();
            switch(typeChoice){
                case 1:
-                   System.out.println("Enter the number of seats:");
+                   System.out.print("Enter the number of seats: ");
                    int seats = sc.nextInt();
                    Car c = new Car(id,brand,model,isRented,seats);
                    system.addVehicle(c);
@@ -42,7 +51,7 @@ public class Main {
                    system.addVehicle(b);
                    break;
                case 3:
-                   System.out.println("Enter the load capacity:");
+                   System.out.print("Enter the load capacity: ");
                    double loadCapacity = sc.nextDouble();
                    Truck t = new Truck(id,brand,model,isRented,loadCapacity);
                    system.addVehicle(t);
@@ -58,30 +67,31 @@ public class Main {
               system.viewVehicles();
               break;
           case 3:
-              System.out.println("Enter the vehicle ID:");
+              System.out.print("Enter the vehicle ID: ");
               int toFind = sc.nextInt();
               system.findById(toFind);
               break;
           case 4:
-              System.out.println("Enter the vehicle ID:");
+              System.out.print("Enter the vehicle ID: ");
               int toUpdate = sc.nextInt();
-              System.out.println("Enter the vehicle brand");
-              String newBrand = sc.nextLine();
-              String newModel = sc.nextLine();
+              System.out.print("Enter the vehicle brand: ");
+              String newBrand = sc.next();
+              System.out.print("Enter the vehicle model: ");
+              String newModel = sc.next();
               system.updateVehicle(toUpdate,newBrand,newModel);
               break;
           case 5:
-              System.out.println("Enter the vehicle ID:");
+              System.out.print("Enter the vehicle ID: ");
               int toDelete = sc.nextInt();
               system.deleteVehicle(toDelete);
               break;
           case 6:
-              System.out.println("Enter the vehicle ID:");
+              System.out.print("Enter the vehicle ID: ");
               int toRent = sc.nextInt();
               system.rentVehicle(toRent);
               break;
           case 7:
-              System.out.println("Enter the vehicle ID:");
+              System.out.print("Enter the vehicle ID: ");
               int returnedId = sc.nextInt();
               system.returnVehicle(returnedId);
               break;

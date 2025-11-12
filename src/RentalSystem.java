@@ -13,6 +13,7 @@ class RentalSystem implements VehicleOperations {
             saveToFile();
             System.out.println("Vehicle added successfully");
         } catch(Exception e){
+            System.out.println("Something went wrong");
             e.printStackTrace();
         }
 
@@ -43,7 +44,8 @@ class RentalSystem implements VehicleOperations {
                 }
             }
         } catch(Exception e){
-           e.printStackTrace();
+            System.out.println("Something went wrong");
+            e.printStackTrace();
         }
       return null;
     }
@@ -56,8 +58,10 @@ class RentalSystem implements VehicleOperations {
               v.setBrand(newBrand);
               v.setModel(newModel);
               saveToFile();
+              System.out.println("Vehicle updated successfully");
           } else System.out.println("Vehicle not found");
        }catch(Exception e){
+           System.out.println("Something went wrong");
            e.printStackTrace();
        }
     }
@@ -69,9 +73,11 @@ class RentalSystem implements VehicleOperations {
             if(v != null){
                 vehicles.remove(v);
                 saveToFile();
+                System.out.println("Vehicle deleted successfully");
             } else  System.out.println("Vehicle not found");
 
         } catch(Exception e){
+            System.out.println("Something went wrong");
             e.printStackTrace();
         }
     }
@@ -79,11 +85,14 @@ class RentalSystem implements VehicleOperations {
     public void rentVehicle(int id){
         try{
             Vehicle v = findById(id);
+
             if(v != null && v.getIsRented() == false){
                 v.rent();
                 saveToFile();
-            } else System.out.println("Vehicle not found");
+                System.out.println("Vehicle rented successfully");
+            } else System.out.println("Vehicle already rented or is unavailable.Re-check the vehicles list");
         } catch(Exception e){
+            System.out.println("Something went wrong");
             e.printStackTrace();
         }
     }
@@ -94,8 +103,10 @@ class RentalSystem implements VehicleOperations {
             if(v != null && v.getIsRented() == true){
                 v.returnVehicle();
                 saveToFile();
-            }
+                System.out.println("Vehicle returned successfully!");
+            } else System.out.println("Vehicle already returned or unavailable.Re-check the vehicles list");
         } catch(Exception e){
+            System.out.println("Something went wrong");
             e.printStackTrace();
         }
     }
@@ -115,12 +126,14 @@ class RentalSystem implements VehicleOperations {
                 }
             }
         }catch(IOException e){
+            System.out.println("Something went wrong");
             e.printStackTrace();
         }
     }
 
     private void loadFromFile(){
         File file = new File("Vehicles.txt");
+        if(!file.exists())return;
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
             String line;
             while((line = br.readLine()) != null){
@@ -148,7 +161,8 @@ class RentalSystem implements VehicleOperations {
                 }
             }
         }catch(IOException e){
-
+            System.out.println("Something went wrong");
+            e.printStackTrace();
         }
     }
 }

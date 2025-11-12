@@ -3,10 +3,14 @@ import java.util.*;
 
 class RentalSystem implements VehicleOperations {
     ArrayList<Vehicle> vehicles = new ArrayList<>();
+    public RentalSystem() {
+        loadFromFile();
+    }
     @Override
     public void addVehicle(Vehicle vehicle){
         try{
             vehicles.add(vehicle);
+            saveToFile();
             System.out.println("Vehicle added successfully");
         } catch(Exception e){
             e.printStackTrace();
@@ -51,6 +55,7 @@ class RentalSystem implements VehicleOperations {
           if(v != null){
               v.setBrand(newBrand);
               v.setModel(newModel);
+              saveToFile();
           } else System.out.println("Vehicle not found");
        }catch(Exception e){
            e.printStackTrace();
@@ -63,6 +68,7 @@ class RentalSystem implements VehicleOperations {
             Vehicle v = findById(id);
             if(v != null){
                 vehicles.remove(v);
+                saveToFile();
             } else  System.out.println("Vehicle not found");
 
         } catch(Exception e){
@@ -75,6 +81,7 @@ class RentalSystem implements VehicleOperations {
             Vehicle v = findById(id);
             if(v != null && v.getIsRented() == false){
                 v.rent();
+                saveToFile();
             } else System.out.println("Vehicle not found");
         } catch(Exception e){
             e.printStackTrace();
@@ -86,13 +93,14 @@ class RentalSystem implements VehicleOperations {
             Vehicle v = findById(id);
             if(v != null && v.getIsRented() == true){
                 v.returnVehicle();
+                saveToFile();
             }
         } catch(Exception e){
             e.printStackTrace();
         }
     }
 
-    public void saveToFile(){
+    private void saveToFile(){
         try(PrintWriter pw = new PrintWriter(new File("Vehicles.txt"))){
             for(Vehicle v:vehicles){
                 if(v instanceof Car){
@@ -100,10 +108,10 @@ class RentalSystem implements VehicleOperations {
                     pw.println("Car," + c.getId() + "," + c.getBrand() + "," + c.getModel() + "," + c.getIsRented() + "," + c.getSeats());
                 } else if(v instanceof Bike){
                     Bike b = (Bike) v;
-                    pw.println("Car," + b.getId() + "," + b.getBrand() + "," + b.getModel() + "," + b.getIsRented() + "," + b.getSeats());
+                    pw.println("Bike," + b.getId() + "," + b.getBrand() + "," + b.getModel() + "," + b.getIsRented() + "," + b.getHasHelmet());
                 } else if(v instanceof Truck){
                     Truck t = (Truck) v;
-                    pw.println("Car," + t.getId() + "," + t.getBrand() + "," + t.getModel() + "," + t.getIsRented() + "," + t.getSeats());
+                    pw.println("Truck," + t.getId() + "," + t.getBrand() + "," + t.getModel() + "," + t.getIsRented() + "," + t.getloadCapacity());
                 }
             }
         }catch(IOException e){
@@ -111,11 +119,35 @@ class RentalSystem implements VehicleOperations {
         }
     }
 
-    public void loadFromFile(){
+    private void loadFromFile(){
         File file = new File("Vehicles.txt");
         try(BufferedReader br = new BufferedReader(new FileReader(file))){
-
-        }catch(IOException){
+            String line;
+            while((line = br.readLine()) != null){
+                String[] data = line.split(",");
+                String type = data[0];
+                int id = Integer.parseInt(data[1]);
+                String brand = data[2];
+                String model = data[3];
+                boolean rented = Boolean.parseBoolean(data[4]);
+                switch(type){
+                    case "Car":
+                        int seats = Integer.parseInt(data[5]);
+                        vehicles.add(new Car(id, brand, model, rented, seats));
+                        break;
+                    case "Bike":
+                        boolean hasHelmet = Boolean.parseBoolean(data[5]);
+                        vehicles.add(new Bike(id,brand,model,rented,hasHelmet));
+                        break;
+                    case "Truck":
+                        double loadCapacity = Double.parseDouble(data[5]);
+                        vehicles.add(new Truck(id,brand,model,rented,loadCapacity));
+                        break;
+                    default:
+                        System.out.println("Problem encountered.type not valid");
+                }
+            }
+        }catch(IOException e){
 
         }
     }
